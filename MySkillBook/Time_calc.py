@@ -1,7 +1,7 @@
 # =================
 # @brief 시간 계산 모듈
 # @reporting date 21/11/24
-# @last modified 21/11/29
+# @last modified 21/11/30
 # dev by Windows 10 (encoding : utf-8)
 # =================
 
@@ -14,6 +14,7 @@ from datetime import datetime as DT
 
 # =================
 # @brief 시간 계산
+# @return 시간의 분차이
 # @last modified 21/11/29
 # =================
 def time_calc():

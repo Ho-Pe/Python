@@ -114,7 +114,7 @@ class Main_Window(QMainWindow):
 
     # ==
     # @brief Btn 클릭 이벤트
-    # @parma selfz
+    # @parma self
     # @last modified 21/09/28
     # == 
     def Btn_Clicked(self):

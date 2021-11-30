@@ -1,7 +1,7 @@
 # =================
 # @brief 숙련도 저장 모듈
 # @reporting date 21/11/24
-# @last modified 21/11/29
+# @last modified 21/11/30
 # dev by Windows (encodig : utf-8)
 # =================
 
@@ -44,25 +44,28 @@ def config_output():
 
 # =================
 # @brief 스킬 추가 모듈
-# @last modified 21/11/27
+# @param (str)name$사용자에게 입력받은 스킬 이름 by MySkillBook.py
+# @last modified 21/11/30
 # =================
 def config_add(name):
     config_file = os.path.dirname(os.path.realpath(__file__)) + '\\' + 'config.ini'
     config = configparser.ConfigParser()
-
+        
     config[name] = {}
-    config[name]['타이틀'] = '초심자'
+    config[name]['타이틀'] = '초급'
     config[name]['숙련도'] = '0'
     config[name]['시간'] = '0'
     
-    print('[스킬이름 : ' + name + ' | 타이틀 : 초심자 | 숙련도 : 0%] 추가완료 되었습니다.\n\n')
+    print('[스킬이름 : ' + name + ' | 타이틀 : 초급 | 숙련도 : 0%] 추가완료 되었습니다.', end='')
+    input()
     
     with open('config.ini', 'a', encoding='utf-8') as config_file:
         config.write(config_file)
 
 # =================
 # @brief 숙련도 추가 모듈
-# @last modified 21/11/29
+# @param (str)name$사용자에게 입력받은 스킬 이름 by MySkillBook.py
+# @last modified 21/11/30
 # =================
 def config_up(name):
     config_file = os.path.dirname(os.path.realpath(__file__)) + '\\' + 'config.ini'
@@ -84,13 +87,47 @@ def config_up(name):
                 config_Time = config_Time + delta_Time
                 config[name]['시간'] = str(config_Time)
                 
+                be_config_pro = float(config[name]['숙련도'])
+                
+                if config[name]['타이틀'] == '초급':
+                    be_config_pro = math.trunc(be_config_pro)
+                    config_pro = math.trunc(config_Time/60)
+                    print('숙련도가 ', end='')
+                    print(config_pro - be_config_pro, end='')
+                    print('% 증가하였습니다.')
+                    if config_pro == 100:
+                        print('\n[!!!!!!!!!!!!!!!]')
+                        print('숙련도가 ', end='')
+                        print(config_pro, end='')
+                        print('%를 달성하여 [' + name + ' - 중급]으로 진화하였습니다.')
+                        config_pro = 0
+                        config[name]['타이틀'] = '중급'
+                        
+                elif config[name]['타이틀'] == '중급':
+                    config_Time = config_Time - 6000
+                    config_pro = math.trunc((config_Time / 60 * 0.1)*10)/10
+                    delta_config_pro = math.trunc((config_pro - be_config_pro)*10)/10
+                    print('숙련도가 ', end='')
+                    print(delta_config_pro, end='')
+                    print('% 증가하였습니다.')
+                    if config_pro == 100.0:
+                        print('\n[!!!!!!!!!!!!!!!]')
+                        print('숙련도가 ', end='')
+                        print(config_pro, end='')
+                        print('%를 달성하여 [' + name + ' - 상급]으로 진화하였습니다.')
+                        config_pro = 0
+                        config[name]['타이틀'] = '상급'
+                        
+                config[name]['숙련도'] = str(config_pro)
+                    
                 with open('config.ini', 'w', encoding='utf-8') as config_file:
                     config.write(config_file)
-                
+                    
                 input()
                 os.system('cls')
                 
         except KeyError:
             print('없는 스킬입니다.', end='')
             input()
-            break    
+            break
+

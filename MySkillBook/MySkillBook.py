@@ -27,8 +27,6 @@ def screen_output():
 
 # =================
 # @brief 총괄 모듈
-# @param 
-# @return 
 # @last modified 21/11/29
 # =================
 def generator():
@@ -48,7 +46,8 @@ def generator():
             print('--------------------')
             sys.exit()
         else:
-            print('다시 입력행!\n\n')
+            print('다시 입력행!')
+            input()
     
 
 # =================

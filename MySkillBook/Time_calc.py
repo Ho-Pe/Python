@@ -20,7 +20,7 @@ from datetime import datetime as DT
 def time_calc():
     start = DT.now()
     sign = input('끝났을떄 "end"를 입력하십시오.\n')
-    if sign == 'end':
+    if sign == 'end' or sign == 'END':
         end = DT.now()
     else:
         print('입력이 잘못되었습니다. 측정을 강제종료합니다.\n')

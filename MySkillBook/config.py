@@ -81,7 +81,7 @@ def config_up(name):
             if config[name] == config[section]:
                 os.system('cls')
                 print('[!!!!!!!!!!!!!!!]\n')
-                print('스킬 [' + name + ']을 찾았습니다. 시간측정을 시작합니다.\n')
+                print('스킬 [' + name + '] 확인했습니다. 시간측정을 시작합니다.\n')
                 delta_Time = TC.time_calc()
                 config_Time = int(config[name]['시간'])
                 config_Time = config_Time + delta_Time
@@ -95,7 +95,7 @@ def config_up(name):
                     print('숙련도가 ', end='')
                     print(config_pro - be_config_pro, end='')
                     print('% 증가하였습니다.')
-                    if config_pro == 100:
+                    if config_pro >= 100:
                         print('\n[!!!!!!!!!!!!!!!]')
                         print('숙련도가 ', end='')
                         print(config_pro, end='')
@@ -103,21 +103,29 @@ def config_up(name):
                         config_pro = 0
                         config[name]['타이틀'] = '중급'
                         
-                elif config[name]['타이틀'] == '중급':
+                if config[name]['타이틀'] == '중급':
                     config_Time = config_Time - 6000
-                    config_pro = math.trunc((config_Time / 60 * 0.1)*10)/10
+                    config_pro = math.trunc((config_Time / 60 * 0.1) * 10)/10
                     delta_config_pro = math.trunc((config_pro - be_config_pro)*10)/10
                     print('숙련도가 ', end='')
                     print(delta_config_pro, end='')
                     print('% 증가하였습니다.')
-                    if config_pro == 100.0:
+                    if config_pro >= 100.0:
                         print('\n[!!!!!!!!!!!!!!!]')
                         print('숙련도가 ', end='')
                         print(config_pro, end='')
                         print('%를 달성하여 [' + name + ' - 상급]으로 진화하였습니다.')
                         config_pro = 0
                         config[name]['타이틀'] = '상급'
-                        
+                
+                if config[name]['타이틀'] == '상급':
+                    config_Time = config_Time - 66000
+                    config_pro = math.trunc((config_Time / 60 * 0.1 / 3) * 10) / 10
+                    delta_config_pro = math.trunc((config_pro - be_config_pro) * 10) / 10
+                    print('숙련도가 ', end='')
+                    print(delta_config_pro, end='')
+                    print('% 증가하였습니다.')
+                    
                 config[name]['숙련도'] = str(config_pro)
                     
                 with open('config.ini', 'w', encoding='utf-8') as config_file:

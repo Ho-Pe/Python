@@ -1,0 +1,22 @@
+[파이썬에서 C코드 사용]
+gcc -fPIC -c asd.c
+
+gcc - shared -o lib.so asd.o
+
+import ctypes
+
+p = ctypes.CDLL('./lib.so')
+
+==
+[파이썬에서 C로 문자열 넘길 때]
+
+def convert_ctype(x):
+  return x.encode('utf-8')
+
+s = convert_ctype('asdf')
+
+utf-8로 인코딩하여 넘김
+
+==
+[C에서 파이썬으로 구조체 리턴값으로 넘길 때]
+https://stackoverrun.com/ko/q/2772291
